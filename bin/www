@@ -1,0 +1,19 @@
+const http = require ('http');
+const https = require ('https');
+const {readFileSync} = require('fs');
+const {resolve} = require('path');
+
+const httpsOptions = {
+  cert: readFileSync(resolve('ssl', 'jonathan.crt')), 
+  key: readFileSync(resolve('ssl', 'jonathan.key'))
+};
+
+http.createServer((req, res) => {
+  res.end('HTTP');
+})
+.listen(3000);
+
+https.createServer(httpsOptions,(req, res) => {
+  res.end('HTTPS');
+})
+.listen(3131);
